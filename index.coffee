@@ -3,5 +3,5 @@ actions = require "./actions"
 
 server.start
   "/": actions.index
-  "/upload": actions.upload
+  "/upload/:route_segment": actions.upload
   "/show": actions.show

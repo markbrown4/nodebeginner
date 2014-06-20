@@ -1,6 +1,6 @@
 fs = require "fs"
 
-index = (params)->
+index = ->
   body = """
   <!doctype html>
   <html>
@@ -8,32 +8,32 @@ index = (params)->
   <meta http-equiv="Content-Type" content="text/html; '+ 'charset=UTF-8">
   </head>
   <body>
-  <form action="/upload?get=yep" method="post">
+  <form action="/upload/yep?get=yep" method="post">
     <textarea name="post">yep</textarea>
     <input type="submit">
   </form>
   </body>
   </html>
   """
-  @writeHead 200, { "Content-Type": "text/html" }
-  @write body
-  @end()
+  @response.writeHead 200, { "Content-Type": "text/html" }
+  @response.write body
+  @response.end()
 
-upload = (params)->
-  @writeHead 200, { "Content-Type": "text/plain" }
-  @write "You've sent: " + JSON.stringify(params)
-  @end()
+upload = ->
+  @response.writeHead 200, { "Content-Type": "text/plain" }
+  @response.write "You've sent: " + JSON.stringify(@params)
+  @response.end()
 
-show = (params)->
+show = ->
   fs.readFile "./test.png", "binary", (error, file)=>
     if error
-      @writeHead 500, { "Content-Type": "text/plain" }
-      @write "#{error}\n"
-      @end()
+      @response.writeHead 500, { "Content-Type": "text/plain" }
+      @response.write "#{error}\n"
+      @response.end()
     else
-      @writeHead 200, { "Content-Type": "image/png" }
-      @write file, "binary"
-      @end()
+      @response.writeHead 200, { "Content-Type": "image/png" }
+      @response.write file, "binary"
+      @response.end()
 
 module.exports =
   index: index
