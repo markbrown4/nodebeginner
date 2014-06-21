@@ -6,10 +6,10 @@ route = (routes, pathName, request, response, params)->
     found = false
     for route, action of routes
       # find routes with dynamic segments
-      routeRegex = route.replace /\./, "\." # escape '.'
-      routeRegex = routeRegex.replace /:\w+/gi, "(.*?)" # make :param a capture group
-      routeRegex = new RegExp "^#{ routeRegex }$"
-      matches = pathName.match routeRegex
+      regex = route.replace /\./, "\." # escape '.'
+      regex = regex.replace /:\w+/gi, "(.*?)" # make :param a capture group
+      regex = new RegExp "^#{ regex }$"
+      matches = pathName.match regex
       if matches != null
         found = true
         namedParams = route.match(/:(\w+)?/ig)
@@ -17,6 +17,7 @@ route = (routes, pathName, request, response, params)->
           params[param.substr(1)] = matches[i+1]
 
         callAction action, request, response, params
+        break
 
     unless found
       response.writeHead 404, { "Content-Type": "text/plain" }

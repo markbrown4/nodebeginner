@@ -3,5 +3,6 @@ uploadController = require "./app/controllers/upload_controller"
 
 server.start
   "/": uploadController.index
-  "/upload/:route_segment": uploadController.upload
+  "/upload/file": uploadController.file
+  "/upload/:route_segment": uploadController.post
   "/show": uploadController.show

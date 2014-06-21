@@ -7,13 +7,22 @@ index = ->
     @response.write body
     @response.end()
 
-upload = ->
+post = ->
   @response.writeHead 200, { "Content-Type": "text/plain" }
   @response.write "You've sent: " + JSON.stringify(@params)
   @response.end()
 
+file = ->
+  # move uploaded image to /tmp
+  if @params.image
+    fs.rename @params.image.path, "./tmp/test.png"
+
+  @response.writeHead 200, { "Content-Type": "text/html" }
+  @response.write '<img src="/show">'
+  @response.end()
+
 show = ->
-  fs.readFile "./public/test.png", "binary", (error, file)=>
+  fs.readFile "./tmp/test.png", "binary", (error, file)=>
     if error
       @response.writeHead 500, { "Content-Type": "text/plain" }
       @response.write "#{error}\n"
@@ -25,5 +34,6 @@ show = ->
 
 module.exports =
   index: index
-  upload: upload
+  post: post
+  file: file
   show: show

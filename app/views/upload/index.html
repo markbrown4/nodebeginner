@@ -6,7 +6,12 @@
 <body>
 <form action="/upload/yep?get=yep" method="post">
   <textarea name="post">yep</textarea>
-  <input type="submit">
+  <input type="submit" value="Submit POST data">
+</form>
+<form action="/upload/file?get=yep" method="post" enctype="multipart/form-data">
+  <input type="file" name="image">
+  <input type="hidden" name="post" value="yep">
+  <input type="submit" value="Upload file">
 </form>
 </body>
 </html>
