@@ -1,7 +1,7 @@
 server = require "./server"
-actions = require "./actions"
+uploadController = require "./app/controllers/upload_controller"
 
 server.start
-  "/": actions.index
-  "/upload/:route_segment": actions.upload
-  "/show": actions.show
+  "/": uploadController.index
+  "/upload/:route_segment": uploadController.upload
+  "/show": uploadController.show

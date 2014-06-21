@@ -1,5 +1,3 @@
-_ = require "underscore"
-
 route = (routes, pathName, request, response, params)->
   if typeof routes[pathName] == 'function'
     # direct match
