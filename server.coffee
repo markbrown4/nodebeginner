@@ -3,9 +3,8 @@ http = require "http"
 url = require "url"
 querystring = require "querystring"
 formidable = require "formidable"
-router = require "./router"
 
-start = (routes)->
+start = (router, routes)->
   server = http.createServer (request, response)->
     parsedURL = url.parse request.url, true
     if request.method == 'GET'
